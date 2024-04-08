@@ -1,88 +1,87 @@
 package com.bosiy;
 
 public class Reader {
-
     private final String fullName;
-    private final int numberOfTicket;
+    private final int ticketNumber;
     private final String faculty;
-    private final String dateOfBirthday;
+    private final String birthDate;
     private final String phoneNumber;
 
-    public Reader(String fullName, int numberOfTicket, String faculty,
-                  String dateOfBirthday, String phoneNumber) {
+    public Reader(String fullName, int ticketNumber, String faculty,
+                  String birthDate, String phoneNumber) {
         this.fullName = fullName;
-        this.numberOfTicket = numberOfTicket;
+        this.ticketNumber = ticketNumber;
         this.faculty = faculty;
-        this.dateOfBirthday = dateOfBirthday;
+        this.birthDate = birthDate;
         this.phoneNumber = phoneNumber;
+    }
+
+    public void takeBook(int countOfBook) {
+        String bookString = isSingleBook(countOfBook) ? " book" : " books";
+        System.out.println(fullName + " takes a " + countOfBook + bookString + ". ");
+    }
+
+    public void takeBook(String... nameOfBooks) {
+        String bookString = isSingleBook(nameOfBooks.length) ? " book:" : " books:";
+        StringBuilder books = new StringBuilder(" ");
+
+        for (int bookNumber = 0; bookNumber < nameOfBooks.length; bookNumber++) {
+            books.append(nameOfBooks[bookNumber]);
+            books.append(nameOfBooks.length - 1 == bookNumber ? ". " : ", ");
+        }
+
+        System.out.println(fullName + " take this" + bookString + books);
+    }
+
+    public void takeBook(Book... books) {
+        String bookString = isSingleBook(books.length) ? " book:" : " books:";
+        StringBuilder listOfBooks = new StringBuilder(" ");
+
+        for (int bookNumber = 0; bookNumber < books.length; bookNumber++) {
+            listOfBooks.append(books[bookNumber].getTitle());
+            listOfBooks.append(books.length - 1 == bookNumber ? ". " : ", ");
+        }
+
+        System.out.println(fullName + " take this" + bookString + listOfBooks);
+    }
+
+    public void returnBook(int countOfBook) {
+        String bookString = isSingleBook(countOfBook) ? " book" : " books";
+        System.out.println(fullName + " returned " + countOfBook + bookString + ". ");
+    }
+
+    public void returnBook(String... nameOfBook) {
+        String bookString = isSingleBook(nameOfBook.length) ? " book:" : " books:";
+        StringBuilder books = new StringBuilder(" ");
+
+        for (int bookNumber = 0; bookNumber < nameOfBook.length; bookNumber++) {
+            books.append(nameOfBook[bookNumber]);
+            books.append(nameOfBook.length - 1 == bookNumber ? ". " : ", ");
+        }
+        System.out.println(fullName + " returned"
+                + bookString + books);
+    }
+
+    public void returnBook(Book... nameOfBook) {
+        String bookString = isSingleBook(nameOfBook.length) ? " book:" : " books:";
+        StringBuilder books = new StringBuilder(" ");
+
+        for (int bookNumber = 0; bookNumber < nameOfBook.length; bookNumber++) {
+            books.append(nameOfBook[bookNumber].getTitle());
+            books.append(nameOfBook.length - 1 == bookNumber ? ". " : ", ");
+        }
+        System.out.println(fullName + " returned"
+                + bookString + books);
+    }
+
+    private boolean isSingleBook(int quantity) {
+        return quantity == 1;
     }
 
     @Override
     public String toString() {
-        return "Name: " + fullName + "\nNumber of ticket: " + numberOfTicket
-                + "\nFaculty: " + faculty + "\nDate of birthday: " + dateOfBirthday
+        return "Name: " + fullName + "\nNumber of ticket: " + ticketNumber
+                + "\nFaculty: " + faculty + "\nDate of birthday: " + birthDate
                 + "\nPhone number " + phoneNumber;
-    }
-
-    public void takeBook(int countOfBook) {
-        System.out.println(fullName + " takes a " + countOfBook + " "
-                + checkBookQuantity(countOfBook) + ". ");
-    }
-
-    private String checkBookQuantity(int quantity) {
-        return quantity == 1
-                ? "book"
-                : "books";
-    }
-
-    public void takeBook(String... nameOfBooks) {
-        StringBuilder books = new StringBuilder(" ");
-        for (int i = 0; i < nameOfBooks.length; i++) {
-            books.append(nameOfBooks[i]);
-            books.append(getChar(i, nameOfBooks.length - 1));
-        }
-        System.out.println(fullName + " take this "
-                + checkBookQuantity(nameOfBooks.length) + books);
-    }
-
-    private String getChar(int currentIndex, int lastIndex) {
-        return currentIndex == lastIndex
-                ? ". "
-                : ", ";
-    }
-
-    public void takeBook(Book... nameOfBooks) {
-        StringBuilder books = new StringBuilder(" ");
-        for (int i = 0; i < nameOfBooks.length; i++) {
-            books.append(nameOfBooks[i].getNameOfABook());
-            books.append(getChar(i, nameOfBooks.length - 1));
-        }
-        System.out.println(fullName + " take this "
-                + checkBookQuantity(nameOfBooks.length) + books);
-    }
-
-    public void returnBook(int countOfBook) {
-        System.out.println(fullName + " returned " + countOfBook
-                + " " + checkBookQuantity(countOfBook) + ". ");
-    }
-
-    public void returnBook(String... nameOfBook) {
-        StringBuilder books = new StringBuilder(" ");
-        for (int i = 0; i < nameOfBook.length; i++) {
-            books.append(nameOfBook[i]);
-            books.append(getChar(i, nameOfBook.length - 1));
-        }
-        System.out.println(fullName + " returned "
-                + checkBookQuantity(nameOfBook.length) + books);
-    }
-
-    public void returnBook(Book... nameOfBook) {
-        StringBuilder books = new StringBuilder(" ");
-        for (int i = 0; i < nameOfBook.length; i++) {
-            books.append(nameOfBook[i].getNameOfABook());
-            books.append(getChar(i, nameOfBook.length - 1));
-        }
-        System.out.println(fullName + " returned "
-                + checkBookQuantity(nameOfBook.length) + books);
     }
 }
